@@ -18,7 +18,11 @@ export default function TeamTable({ teams, onDelete }) {
           <tr key={t.id}>
             <td>
               {t.logo && (
-                <img src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${t.logo}`} alt="" width={60} />
+                <img
+                  src={t.logo}          // já contém "data:image/…;base64,…"
+                  alt={t.nome}
+                  width={60}
+                />
               )}
             </td>
             <td>{t.nome}</td>

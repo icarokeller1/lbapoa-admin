@@ -84,6 +84,12 @@ export default function TeamForm({ initial = {}, onSubmit }) {
           />
         </Form.Group>
 
+        {initial.logo && (
+          <div className="mb-3">
+            <Form.Label>Logo atual:</Form.Label><br />
+            <img src={initial.logo} alt="Logo atual" width={100} />
+          </div>
+        )}
         <Form.Group className="mb-3">
           <Form.Label>Logo</Form.Label>
           <Form.Control
