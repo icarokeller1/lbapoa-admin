@@ -3,14 +3,14 @@
 import { useState } from 'react';
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 
-export default function MatchForm({ teams = [], initial = {}, onSubmit }) {
+export default function MatchForm({ teams = [], tournaments = [], initial = {}, onSubmit }) {
   const [form, setForm] = useState({
-    timeA: initial.timeA || '',
-    timeB: initial.timeB || '',
-    pontuacaoA: initial.pontuacaoA ?? '',
-    pontuacaoB: initial.pontuacaoB ?? '',
-    dataHora: initial.dataHora || '',
-    torneio: initial.torneio || '',
+    timeA:       initial.timeA    || '',
+    timeB:       initial.timeB    || '',
+    pontuacaoA:  initial.pontuacaoA ?? '',
+    pontuacaoB:  initial.pontuacaoB ?? '',
+    dataHora:    initial.dataHora || '',
+    torneio:     initial.torneio  || '',   // agora controlado via select
   });
   const [error, setError] = useState('');
 
@@ -20,14 +20,14 @@ export default function MatchForm({ teams = [], initial = {}, onSubmit }) {
       ...f,
       [name]: type === 'number'
         ? (value === '' ? '' : parseInt(value, 10))
-        : value,
+        : value
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.timeA || !form.timeB) {
-      setError('Selecione ambos os times.');
+    if (!form.timeA || !form.timeB || !form.torneio) {
+      setError('Selecione Time A, Time B e Torneio.');
       return;
     }
     setError('');
@@ -35,19 +35,21 @@ export default function MatchForm({ teams = [], initial = {}, onSubmit }) {
       ...form,
       pontuacaoA: form.pontuacaoA === '' ? null : form.pontuacaoA,
       pontuacaoB: form.pontuacaoB === '' ? null : form.pontuacaoB,
-      // dataHora já vem no formato correto (YYYY-MM-DDTHH:mm)
+      // dataHora já está no formato local (YYYY-MM-DDTHH:mm)
     });
   };
 
-  // Se a lista de times chegar vazia, pode sinalizar loading
-  if (!teams.length) {
+  // aguardando dados
+  if (!teams.length || !tournaments.length) {
     return <Spinner animation="border" />;
   }
 
   return (
     <>
       {error && <Alert variant="danger">{error}</Alert>}
+
       <Form onSubmit={handleSubmit} noValidate>
+        {/* Time A */}
         <Form.Group className="mb-3">
           <Form.Label>Time A</Form.Label>
           <Form.Select
@@ -65,6 +67,7 @@ export default function MatchForm({ teams = [], initial = {}, onSubmit }) {
           </Form.Select>
         </Form.Group>
 
+        {/* Time B */}
         <Form.Group className="mb-3">
           <Form.Label>Time B</Form.Label>
           <Form.Select
@@ -81,8 +84,6 @@ export default function MatchForm({ teams = [], initial = {}, onSubmit }) {
             ))}
           </Form.Select>
         </Form.Group>
-
-        {/* Pontuações e resto do formulário seguem iguais */}
         <Form.Group className="mb-3">
           <Form.Label>Pontuação A</Form.Label>
           <Form.Control
