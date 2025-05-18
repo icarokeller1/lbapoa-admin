@@ -19,7 +19,7 @@ export default function NewsTable({ news, onDelete }) {
           <tr key={n.id}>
             <td>{n.id}</td>
             <td>{n.titulo}</td>
-            <td>{new Date(n.data).toLocaleDateString()}</td>
+            <td>{new Date(n.data)}</td>
             <td>{n.times}</td>
             <td>{n.torneios}</td>
             <td>
