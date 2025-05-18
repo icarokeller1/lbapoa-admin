@@ -24,7 +24,7 @@ export default function MatchTable({ matches, onDelete }) {
             <td>{m.timeB}</td>
             <td>{m.pontuacaoA}</td>
             <td>{m.pontuacaoB}</td>
-            <td>{new Date(m.dataHora).toLocaleString()}</td>
+            <td>{new Date(m.dataHora)}</td>
             <td>{m.torneio}</td>
             <td>
               <Link href={`/matches/${m.id}/edit`} passHref legacyBehavior>
