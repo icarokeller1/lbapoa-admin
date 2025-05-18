@@ -8,18 +8,19 @@ import api from '@/lib/api';
 export default function EditMatch() {
   const router = useRouter();
   const { id } = router.query;
+
   const [teams, setTeams] = useState([]);
+  const [tournaments, setTournaments] = useState([]);
   const [match, setMatch] = useState(null);
   const [error, setError] = useState('');
 
-  // carrega lista de times
   useEffect(() => {
-    api.get('/teams')
-      .then(({ data }) => setTeams(data))
+    api.get('/teams').then(r => setTeams(r.data))
       .catch(() => setError('Falha ao carregar times.'));
+    api.get('/tournaments').then(r => setTournaments(r.data))
+      .catch(() => setError('Falha ao carregar torneios.'));
   }, []);
 
-  // carrega dados da partida
   useEffect(() => {
     if (!id) return;
     api.get(`/matches/${id}`)
@@ -36,14 +37,12 @@ export default function EditMatch() {
     }
   };
 
-  if (error) {
-    return (
-      <Layout>
-        <Alert variant="danger">{error}</Alert>
-      </Layout>
-    );
-  }
-  if (!teams.length || !match) {
+  if (error) return (
+    <Layout>
+      <Alert variant="danger">{error}</Alert>
+    </Layout>
+  );
+  if (!teams.length || !tournaments.length || !match) {
     return (
       <Layout>
         <Spinner animation="border" />
@@ -56,9 +55,10 @@ export default function EditMatch() {
       <h3>Editar Partida</h3>
       <MatchForm
         teams={teams}
+        tournaments={tournaments}
         initial={{
           ...match,
-          dataHora: match.dataHora.slice(0, 16),
+          dataHora: match.dataHora.slice(0, 16)
         }}
         onSubmit={updateMatch}
       />

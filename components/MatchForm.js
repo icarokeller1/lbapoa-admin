@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 
 export default function MatchForm({ teams = [], initial = {}, onSubmit }) {
@@ -113,11 +113,19 @@ export default function MatchForm({ teams = [], initial = {}, onSubmit }) {
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Torneio</Form.Label>
-          <Form.Control
+          <Form.Select
             name="torneio"
             value={form.torneio}
             onChange={handleChange}
-          />
+            required
+          >
+            <option value="">-- selecione --</option>
+            {tournaments.map(t => (
+              <option key={t.id} value={t.nome}>
+                {t.nome}
+              </option>
+            ))}
+          </Form.Select>
         </Form.Group>
 
         <Button type="submit">Salvar</Button>

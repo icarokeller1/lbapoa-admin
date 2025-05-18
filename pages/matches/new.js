@@ -8,12 +8,14 @@ import api from '@/lib/api';
 export default function NewMatch() {
   const router = useRouter();
   const [teams, setTeams] = useState([]);
+  const [tournaments, setTournaments] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    api.get('/teams')
-      .then(({ data }) => setTeams(data))
-      .catch(() => setError('Não foi possível carregar times.'));
+    api.get('/teams').then(r => setTeams(r.data))
+      .catch(() => setError('Erro ao carregar times.'));
+    api.get('/tournaments').then(r => setTournaments(r.data))
+      .catch(() => setError('Erro ao carregar torneios.'));
   }, []);
 
   const createMatch = async (form) => {
@@ -29,7 +31,11 @@ export default function NewMatch() {
     <Layout>
       <h3>Nova Partida</h3>
       {error && <Alert variant="danger">{error}</Alert>}
-      <MatchForm teams={teams} onSubmit={createMatch} />
+      <MatchForm
+        teams={teams}
+        tournaments={tournaments}
+        onSubmit={createMatch}
+      />
     </Layout>
   );
 }
