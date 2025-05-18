@@ -25,6 +25,12 @@ export default function Layout({ children }) {
             <Link href="/tournaments/new" passHref legacyBehavior>
               <Nav.Link> Novo Torneio </Nav.Link>
             </Link>
+            <Link href="/news" passHref legacyBehavior>
+              <Nav.Link> Notícias </Nav.Link>
+            </Link>
+            <Link href="/news/new" passHref legacyBehavior>
+              <Nav.Link> Nova Notícia </Nav.Link>
+            </Link>
           </Nav>
         </Container>
       </Navbar>
