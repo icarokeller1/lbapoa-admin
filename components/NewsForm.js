@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Form, Button, Spinner, Alert } from 'react-bootstrap';
+import AutocompleteMultiSelect from '@/components/AutocompleteMultiSelect';
 
 export default function NewsForm({
   teams = [],
@@ -20,6 +21,8 @@ export default function NewsForm({
     torneios:      initial.torneios      || '',
   });
   const [error, setError] = useState('');
+  const timesList = form.times ? form.times.split(';') : [];
+  const torneiosList = form.torneios ? form.torneios.split(';') : [];
 
   const handleChange = (e) => {
     const { name, value, type, selectedOptions } = e.target;
@@ -98,46 +101,24 @@ export default function NewsForm({
             required
           />
         </Form.Group>
+        <AutocompleteMultiSelect
+          label="Times"
+          options={teams}              // objeto com {id, nome}
+          selected={timesList}
+          onChange={(newList) =>
+            setForm(f => ({ ...f, times: newList.join(';') }))
+          }
+        />
 
-        {/* COMBO MULTI DE TIMES */}
-        <Form.Group className="mb-3">
-          <Form.Label>Times</Form.Label>
-          <Form.Select
-            name="times"
-            multiple
-            value={timesSelected}
-            onChange={handleChange}
-          >
-            {teams.map(t => (
-              <option key={t.id} value={t.nome}>
-                {t.nome}
-              </option>
-            ))}
-          </Form.Select>
-          <Form.Text className="text-muted">
-            Segure Ctrl (ou Cmd) para múltipla seleção.
-          </Form.Text>
-        </Form.Group>
-
-        {/* COMBO MULTI DE TORNEIOS */}
-        <Form.Group className="mb-3">
-          <Form.Label>Torneios</Form.Label>
-          <Form.Select
-            name="torneios"
-            multiple
-            value={torneiosSelected}
-            onChange={handleChange}
-          >
-            {tournaments.map(t => (
-              <option key={t.id} value={t.nome}>
-                {t.nome}
-              </option>
-            ))}
-          </Form.Select>
-          <Form.Text className="text-muted">
-            Segure Ctrl (ou Cmd) para múltipla seleção.
-          </Form.Text>
-        </Form.Group>
+        {/* Autocomplete de Torneios */}
+        <AutocompleteMultiSelect
+          label="Torneios"
+          options={tournaments}
+          selected={torneiosList}
+          onChange={(newList) =>
+            setForm(f => ({ ...f, torneios: newList.join(';') }))
+          }
+        />
 
         <Button type="submit">Salvar</Button>
       </Form>

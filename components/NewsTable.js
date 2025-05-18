@@ -1,6 +1,13 @@
 import { Table, Button } from 'react-bootstrap';
 import Link from 'next/link';
 
+function formatDateDMY(dateString) {
+  // pega apenas a parte da data (antes do 'T')
+  const [datePart] = dateString.split('T');
+  const [year, month, day] = datePart.split('-');
+  return `${day}/${month}/${year}`;
+}
+
 export default function NewsTable({ news, onDelete }) {
   return (
     <Table striped bordered hover>
@@ -19,7 +26,7 @@ export default function NewsTable({ news, onDelete }) {
           <tr key={n.id}>
             <td>{n.id}</td>
             <td>{n.titulo}</td>
-            <td>{new Date(n.data)}</td>
+            <td>{formatDateDMY(n.data)}</td>
             <td>{n.times}</td>
             <td>{n.torneios}</td>
             <td>
