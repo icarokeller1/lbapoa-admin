@@ -35,7 +35,7 @@ export default function MatchForm({ initial = {}, onSubmit }) {
       ...form,
       pontuacaoA: form.pontuacaoA === '' ? null : form.pontuacaoA,
       pontuacaoB: form.pontuacaoB === '' ? null : form.pontuacaoB,
-      dataHora: new Date(form.dataHora).toISOString(),
+      dataHora: form.dataHora,
     };
     onSubmit(payload);
   };
