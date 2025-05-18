@@ -13,6 +13,12 @@ export default function Layout({ children }) {
             <Link href="/teams/new" passHref legacyBehavior>
               <Nav.Link> Novo Time </Nav.Link>
             </Link>
+            <Link href="/matches" passHref legacyBehavior>
+              <Nav.Link> Partidas </Nav.Link>
+            </Link>
+            <Link href="/matches/new" passHref legacyBehavior>
+              <Nav.Link> Nova Partida </Nav.Link>
+            </Link>
           </Nav>
         </Container>
       </Navbar>

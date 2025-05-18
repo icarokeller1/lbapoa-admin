@@ -78,7 +78,7 @@ export default function TeamForm({ initial = {}, onSubmit }) {
           <Form.Check
             type="checkbox"
             name="indPodeUsarMidia"
-            label="Pode usar em mídia?"
+            label="Pode usar mídia?"
             checked={form.indPodeUsarMidia}
             onChange={handleChange}
           />
