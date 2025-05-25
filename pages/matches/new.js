@@ -1,3 +1,4 @@
+// pages/matches/new.js
 import { useState, useEffect } from 'react';
 import { Spinner, Alert } from 'react-bootstrap';
 import { useRouter } from 'next/router';
@@ -12,10 +13,8 @@ export default function NewMatch() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    api.get('/teams').then(r => setTeams(r.data))
-      .catch(() => setError('Erro ao carregar times.'));
-    api.get('/tournaments').then(r => setTournaments(r.data))
-      .catch(() => setError('Erro ao carregar torneios.'));
+    api.get('/teams').then(r => setTeams(r.data)).catch(() => setError('Erro ao carregar times.'));
+    api.get('/tournaments').then(r => setTournaments(r.data)).catch(() => setError('Erro ao carregar torneios.'));
   }, []);
 
   const createMatch = async (form) => {
@@ -26,6 +25,8 @@ export default function NewMatch() {
       setError('Erro ao criar partida.');
     }
   };
+
+  if (!teams.length || !tournaments.length) return <Spinner />;
 
   return (
     <Layout>
