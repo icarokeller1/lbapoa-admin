@@ -2,15 +2,15 @@ import { Table, Button } from 'react-bootstrap';
 import Link from 'next/link';
 
 function formatDateTime(dateInput) {
-  if (!dateInput) return '';                // evita undefined
+  if (!dateInput) return '';
   const d = new Date(dateInput);
-  if (isNaN(d)) return '';                   // evita objetos inválidos
+  if (isNaN(d)) return '';
   const pad = (n) => String(n).padStart(2, '0');
-  const day   = pad(d.getDate());
-  const month = pad(d.getMonth() + 1);
-  const year  = d.getFullYear();
-  const hour  = pad(d.getHours());
-  const min   = pad(d.getMinutes());
+  const day   = pad(d.getUTCDate());
+  const month = pad(d.getUTCMonth() + 1);
+  const year  = d.getUTCFullYear();
+  const hour  = pad(d.getUTCHours());
+  const min   = pad(d.getUTCMinutes());
   return `${day}/${month}/${year} ${hour}:${min}`;
 }
 
