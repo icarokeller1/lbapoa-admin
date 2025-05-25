@@ -6,6 +6,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 export default function TeamForm({ initial = {}, onSubmit }) {
   const [form, setForm] = useState({
     nome: initial.nome || '',
+    apelido: initial.apelido || '',
     instagram: initial.instagram || '',
     indPodeUsarMidia: initial.indPodeUsarMidia ? true : false,
     logo: null,
@@ -62,6 +63,15 @@ export default function TeamForm({ initial = {}, onSubmit }) {
             value={form.nome}
             onChange={handleChange}
             required
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Apelido (opcional)</Form.Label>
+          <Form.Control
+            name="apelido"
+            value={form.apelido}
+            onChange={handleChange}
           />
         </Form.Group>
 

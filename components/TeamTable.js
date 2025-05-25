@@ -8,6 +8,7 @@ export default function TeamTable({ teams, onDelete }) {
         <tr>
           <th>Logo</th>
           <th>Nome</th>
+          <th>Apelido</th>
           <th>Instagram</th>
           <th>Mídia?</th>
           <th>Ações</th>
@@ -26,6 +27,7 @@ export default function TeamTable({ teams, onDelete }) {
               )}
             </td>
             <td>{t.nome}</td>
+            <td>{t.apelido || '-'}</td>
             <td>{t.instagram}</td>
             <td>{t.indPodeUsarMidia ? '✔️' : '❌'}</td>
             <td>

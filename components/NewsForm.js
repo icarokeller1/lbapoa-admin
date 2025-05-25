@@ -28,7 +28,6 @@ export default function NewsForm({
     const { name, value, type, selectedOptions } = e.target;
 
     if (type === 'select-multiple') {
-      // monta string separada por ';'
       const vals = Array.from(selectedOptions).map(o => o.value);
       setForm(f => ({ ...f, [name]: vals.join(';') }));
     } else {
@@ -46,14 +45,9 @@ export default function NewsForm({
     onSubmit(form);
   };
 
-  // carregando combos?
   if (!teams.length || !tournaments.length) {
     return <Spinner animation="border" />;
   }
-
-  // prepara valores para <Form.Select multiple>
-  const timesSelected = form.times ? form.times.split(';') : [];
-  const torneiosSelected = form.torneios ? form.torneios.split(';') : [];
 
   return (
     <>
@@ -101,16 +95,16 @@ export default function NewsForm({
             required
           />
         </Form.Group>
+
         <AutocompleteMultiSelect
           label="Times"
-          options={teams}              // objeto com {id, nome}
+          options={teams}
           selected={timesList}
           onChange={(newList) =>
             setForm(f => ({ ...f, times: newList.join(';') }))
           }
         />
 
-        {/* Autocomplete de Torneios */}
         <AutocompleteMultiSelect
           label="Torneios"
           options={tournaments}
