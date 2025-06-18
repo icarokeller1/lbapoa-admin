@@ -8,6 +8,7 @@ export default function TournamentTable({ tournaments, onDelete }) {
         <tr>
           <th>#</th>
           <th>Nome</th>
+          <th>Link</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -16,6 +17,7 @@ export default function TournamentTable({ tournaments, onDelete }) {
           <tr key={t.id}>
             <td>{t.id}</td>
             <td>{t.nome}</td>
+            <td>{t.link}</td>
             <td>
               <Link href={`/tournaments/${t.id}/edit`} passHref legacyBehavior>
                 <Button size="sm" variant="primary" className="me-2">

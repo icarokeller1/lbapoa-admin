@@ -5,10 +5,11 @@ import { Form, Button } from 'react-bootstrap';
 
 export default function TournamentForm({ initial = {}, onSubmit }) {
   const [nome, setNome] = useState(initial.nome || '');
+  const [link, setLink] = useState(initial.link || '');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ nome });
+    onSubmit({ nome, link });
   };
 
   return (
@@ -20,6 +21,15 @@ export default function TournamentForm({ initial = {}, onSubmit }) {
           value={nome}
           onChange={(e) => setNome(e.target.value)}
           required
+        />
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Label>Link (opcional)</Form.Label>
+        <Form.Control
+          name="link"
+          value={link}
+          onChange={(e) => setLink(e.target.value)}
+          placeholder="https://..."
         />
       </Form.Group>
       <Button type="submit">Salvar</Button>
